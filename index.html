@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>🎵 同花顺 · 林倛玉</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            max-width: 550px;
+            margin: 3rem auto;
+            padding: 1rem;
+            background: #f0f2f5;
+            color: #1e2a3e;
+        }
+        .card {
+            background: white;
+            border-radius: 32px;
+            padding: 2rem 1.8rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin: 0 0 0.25rem 0;
+        }
+        .artist {
+            font-size: 1rem;
+            color: #4a627a;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: inline-block;
+            padding-bottom: 0.25rem;
+        }
+        audio {
+            width: 100%;
+            margin: 1.5rem 0;
+            border-radius: 30px;
+        }
+        .status {
+            font-size: 0.85rem;
+            background: #eef2f6;
+            padding: 0.5rem 1rem;
+            border-radius: 40px;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+        .footer {
+            font-size: 0.75rem;
+            color: #6c7a8e;
+            margin-top: 2rem;
+        }
+        button {
+            background: none;
+            border: 1px solid #cbd5e1;
+            padding: 0.3rem 1rem;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            color: #2c6e9e;
+            transition: 0.2s;
+        }
+        button:hover {
+            background: #eef2ff;
+            border-color: #2c6e9e;
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <h1>🎶 同花顺</h1>
+    <div class="artist">林倛玉</div>
+
+    <!-- 音频播放器，使用多个备选源提高可用性 -->
+    <audio controls preload="metadata" id="player">
+        <!-- 主源：GitHub Pages 直链（最可靠，无 LFS 问题） -->
+        <source src="https://ycsongto1944-arch.github.io/TongHuaShun.mp3" type="audio/mpeg">
+        <!-- 备用1：jsDelivr CDN（如果文件已经解除 LFS 也可用） -->
+        <source src="https://cdn.jsdelivr.net/gh/ycsongto1944-arch/octocat.github.io@main/TongHuaShun.mp3" type="audio/mpeg">
+        <!-- 备用2：gcore 镜像 -->
+        <source src="https://gcore.jsdelivr.net/gh/ycsongto1944-arch/octocat.github.io@main/TongHuaShun.mp3" type="audio/mpeg">
+        您的浏览器不支持音频播放，请升级浏览器。
+    </audio>
+
+    <div class="status" id="loadStatus">🎧 就绪，点击播放</div>
+    <div class="footer">
+        <button id="reloadBtn">⟳ 重新加载音频</button>
+    </div>
+</div>
+
+<script>
+    const audio = document.getElementById('player');
+    const statusDiv = document.getElementById('loadStatus');
+
+    function setStatus(msg, isError = false) {
+        statusDiv.innerHTML = isError ? `⚠️ ${msg}` : `✨ ${msg}`;
+        statusDiv.style.background = isError ? '#ffe6e5' : '#eef2f6';
+    }
+
+    audio.addEventListener('loadstart', () => setStatus('🔄 加载中...'));
+    audio.addEventListener('canplay', () => setStatus('✅ 可以播放了'));
+    audio.addEventListener('waiting', () => setStatus('⏳ 缓冲中，请稍等'));
+    audio.addEventListener('error', () => {
+        setStatus('加载失败，请检查网络或刷新页面', true);
+    });
+
+    document.getElementById('reloadBtn').addEventListener('click', () => {
+        setStatus('🔄 重新加载...');
+        audio.load();
+        setTimeout(() => {
+            if (audio.readyState >= 2) {
+                setStatus('✅ 已重新加载，可播放');
+            }
+        }, 1000);
+    });
+</script>
+</body>
+</html>
