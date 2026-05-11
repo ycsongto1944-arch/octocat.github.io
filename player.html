@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>音乐播放器</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: transparent;  /* 背景透明，让 AO3 页面底色透出 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: auto;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        .player-card {
+            background: linear-gradient(135deg, #ebebeb 0%, #cecece 100%);
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            padding: 1em 1.2em 1.2em;
+            text-align: center;
+            width: 100%;
+            max-width: 320px;
+            margin: 0 auto;
+        }
+        .song-info {
+            color: #000000;
+            font-size: 1em;
+            font-weight: 500;
+            margin-bottom: 0.5em;
+        }
+        audio {
+            width: 100%;
+            margin: 0.5em 0;
+        }
+        .loop-note {
+            font-size: 0.7rem;
+            color: #555;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+<div class="player-card">
+    <div class="song-info">同花顺 - 林倛玉</div>
+    <!-- 注意：使用 src 属性，而不是 source 标签 -->
+    <audio controls loop preload="metadata" src="https://ycsongto1944-arch.github.io/octocat.github.io/TongHuaShun.mp3"></audio>
+    <div class="loop-note">🔁 单曲循环</div>
+</div>
+</body>
+</html>
